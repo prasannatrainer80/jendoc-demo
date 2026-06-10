@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-            		url: 'https://github.com/prasannatrainer80/jendoc-demo'
+                    url: 'https://github.com/prasannatrainer80/jendoc-demo'
             }
         }
 
@@ -21,7 +21,7 @@ pipeline {
             }
         }
 
-          stage('Docker Build') {
+        stage('Docker Build') {
             steps {
                 bat 'docker build -t jendoc-demo .'
             }
@@ -29,7 +29,7 @@ pipeline {
 
         stage('Stop Old Container') {
             steps {
-                bat 'docker rm -f jendoc-container || exit 0'
+                bat 'docker rm -f jendoc-container 2>NUL'
             }
         }
 
@@ -38,6 +38,5 @@ pipeline {
                 bat 'docker run -d --name jendoc-container -p 1113:1113 jendoc-demo'
             }
         }
-    }
     }
 }
